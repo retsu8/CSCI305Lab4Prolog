@@ -25,7 +25,7 @@ edge(7,8,1.6).
 edge(8,9,1.8).
 
 path(To, To, [To]).
-path(This, To, [This|Rest]) :-
+path(This, To, [This|Rest]) :
     edge(This, Next, Weight),
     path(Next, To, Rest).
 path(From, To, Path) :-
