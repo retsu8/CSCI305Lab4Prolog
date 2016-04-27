@@ -24,9 +24,21 @@ edge(6,9,1.7).
 edge(7,8,1.6).
 edge(8,9,1.8).
 
-path(To, To, [To]).
-path(This, To, [This|Rest]) :
-    edge(This, Next, Weight),
-    path(Next, To, Rest).
-path(From, To, Path) :-
-        path_1(From, To, [], Path).
+path(From, To, Weight, [Going]]):- edge(From, To, Weight).
+path(From, To, CombWeight [Z|T]):- edge(From, Z ,Weight), path(Z,To,N,T),
+    CombWeight is Weight+N.
+
+pravilo(From, To, Z):- assert(min(100)), assert(minpath([])),!,
+    path(From, To, K, Path1),
+    (min(Z), K<Z, retract(min(Z));assert(min(K))), 
+    minpath(Q), retract(minpath(Q)), 
+    assert(minpath([From]Path1)),fail.
+
+?- pravilo(a,h,X);
+write("Minimal Path:"),
+minpath(PATH),
+write(PATH),
+nl,
+write("Path weight:"),
+min(Z),
+write(Z).
