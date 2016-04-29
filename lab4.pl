@@ -32,20 +32,20 @@ path(From, To, CombWeight[Z|T]):-
     CombWeight is Weight+N.
 
 travel(From, To, Z):-
-    assert(min(100)),
+    assert(min(0)),
     assert(minpath([])),
     !,
     path(From, To, K, Path1),
     (min(Z),
     K<Z,
-    retract(min(Z)):-
+    retract(min(Z));
       assert(min(K))),
       minpath(Q),
       retract(minpath(Q)),
       assert(minpath([From], Path1)),
       fail.
 
-?- travel(a,h,X):-
+?- travel(a,h,X);
   write("Minimal Path:"),
   minpath(PATH),
   write(PATH),
